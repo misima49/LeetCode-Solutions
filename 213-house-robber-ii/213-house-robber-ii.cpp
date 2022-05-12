@@ -2,15 +2,13 @@ class Solution {
     int maxProfit(vector<int>& nums, int start, int end) {
         int pick, nonPick;
         int prev = 0, prev2 = 0;
-        int curr;
+
         for(int i = start; i < end; i++) {
             pick = nums[i] + prev2;
             nonPick = prev;
             
-            curr = max(pick, nonPick);
-            
             prev2 = prev;
-            prev = curr;
+            prev = max(pick, nonPick);
         }
         
         return prev;
