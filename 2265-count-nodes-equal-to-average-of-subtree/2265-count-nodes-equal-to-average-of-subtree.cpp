@@ -13,8 +13,8 @@ class Solution {
     pair<int,int> dfs(TreeNode* root, int &result) {
         if(root == NULL) return {0, 0};
         
-        pair<int, int> left(make_pair(0,0));
-        pair<int, int> right(make_pair(0,0));
+        pair<int, int> left({0,0});
+        pair<int, int> right({0,0});
         
         if(root->left) {
             left = dfs(root->left, result);
@@ -24,7 +24,8 @@ class Solution {
         }
         int avg = (root->val + left.first + right.first)/(1 + left.second + right.second);
         if(avg == root -> val)  result++;
-        return make_pair(root->val + left.first + right.first, 1 + left.second + right.second);
+        
+        return {root->val + left.first + right.first, 1 + left.second + right.second};
     }
 public:
     int averageOfSubtree(TreeNode* root) {
