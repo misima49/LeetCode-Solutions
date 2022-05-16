@@ -11,7 +11,28 @@ class Solution {
     }
 public:
     int minimumTotal(vector<vector<int>>& triangle) {
-        vector<vector<int>> dp(triangle.size(), vector<int>(triangle.size(), -1));
-        return findPath(0, 0, triangle, dp);
+        vector<int> prev(triangle.size());
+        vector<int> cur(triangle.size());
+        
+        int i = triangle.size() - 1;
+        int j;
+        
+        for( ; i >= 0; i--) {
+            for(j = i ; j >= 0; j--) {
+                if(i == triangle.size()-1) {
+                    cur[j] = triangle[i][j];
+                    continue;
+                }
+                
+                int down = triangle[i][j] + prev[j];
+                int diag = triangle[i][j] + prev[j+1];
+                
+                cur[j] = min(down, diag);
+            }
+            
+            prev = cur;
+        }
+        
+        return prev[0];
     }
 };
