@@ -1,20 +1,4 @@
 class Solution {
-    int findPath(int i, int j, vector<vector<int>>& matrix) {
-        if(j < 0 || j > matrix.size()-1) {
-            return INT_MAX-100;
-        }
-        if(i == 0) {
-            return matrix[i][j];
-        }
-        
-        int down = matrix[i][j] + findPath(i-1, j, matrix);
-        int leftDiag = matrix[i][j] + findPath(i-1, j-1, matrix);
-        int rightDiag = matrix[i][j] + findPath(i-1, j+1, matrix);
-        
-        cout << min({down, leftDiag, rightDiag}) << " at " << matrix[i][j] << "\n";
-        
-        return min({down, leftDiag, rightDiag});
-    }
 public:
     int minFallingPathSum(vector<vector<int>>& matrix) {
         int n = matrix.size();
@@ -24,6 +8,7 @@ public:
             for(int j = n-1; j >= 0; j--) {
                 if(i == n-1) {
                     cur[j] = matrix[i][j];
+                    continue;
                 }
                 
                 int up = prev[j];
