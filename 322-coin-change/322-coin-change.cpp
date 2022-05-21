@@ -15,30 +15,30 @@ class Solution {
 public:
     int coinChange(vector<int>& coins, int target) {
         int n = coins.size();
-        vector<vector<int>> dp(n, vector<int>(target+1, 1e8));
+        vector<int> prev(target+1, 0), cur(target+1, 0);
         
         for(int i = 0; i <= target; i++) {
             if(i%coins[0] == 0) {
-                dp[0][i] = i/coins[0];
+                prev[i] = i/coins[0];
+            } else {
+                prev[i] = 1e8;
             }
         }
-        // cout << "here1\n";
+       
         for(int i = 1; i < n; i++) {
-            // cout << "here4\n";
             for(int j = 0; j <= target; j++) {
-                // cout << "here3\n";
-                int notPick = dp[i-1][j];
+                int notPick = prev[j];
                 int pick = 1e8;
-                if(coins[i] <= j) pick = 1 + dp[i][j-coins[i]];
                 
-                dp[i][j] = min(pick, notPick);
+                if(coins[i] <= j) pick = 1 + cur[j-coins[i]];
+                
+                cur[j] = min(pick, notPick);
             }
+           
+            prev = cur;
         }
-        // cout << "here2\n";
-        // int answer = findChange(n-1, amount, coins, dp);
         
-        if(dp[n-1][target] == 1e8) return -1;
-        return dp[n-1][target];
-        // return answer;
+        if(prev[target] == 1e8) return -1;
+        return prev[target];
     }
 };
