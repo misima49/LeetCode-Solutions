@@ -15,7 +15,7 @@ class Solution {
 public:
     int coinChange(vector<int>& coins, int target) {
         int n = coins.size();
-        vector<int> prev(target+1, 0), cur(target+1, 0);
+        vector<int> prev(target+1, 0);
         
         for(int i = 0; i <= target; i++) {
             if(i%coins[0] == 0) {
@@ -30,12 +30,12 @@ public:
                 int notPick = prev[j];
                 int pick = 1e8;
                 
-                if(coins[i] <= j) pick = 1 + cur[j-coins[i]];
+                if(coins[i] <= j) pick = 1 + prev[j-coins[i]];
                 
-                cur[j] = min(pick, notPick);
+                prev[j] = min(pick, notPick);
             }
            
-            prev = cur;
+            // prev = cur;
         }
         
         if(prev[target] == 1e8) return -1;
