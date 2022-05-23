@@ -17,7 +17,30 @@ class Solution {
 public:
     int change(int amount, vector<int>& coins) {
         int n = coins.size();
-        vector<vector<int>> dp(n, vector<int>(amount+1, -1));
-        return findChange(n-1, amount, coins, dp);
+        vector<vector<int>> dp(n, vector<int>(amount+1, 0));
+        
+        dp[0][0] = 1;
+        for(int i = coins[0]; i <= amount; i += coins[0]) {
+            dp[0][i] = 1;
+        }
+        
+        for(int i = 1; i < n; i++) {
+            for(int a = 0; a <= amount; a++) {
+                int notPick = dp[i-1][a];
+                int pick = 0;
+                if(a >= coins[i]) pick = dp[i][a-coins[i]];
+                
+                dp[i][a] = pick + notPick;
+            }
+        }
+        
+        // for(vector<int> itr:dp) {
+        //     for(int it:itr) {
+        //         cout << it << " ";
+        //     }
+        //     cout << "\n";
+        // }
+        
+        return dp[n-1][amount];
     }
 };
