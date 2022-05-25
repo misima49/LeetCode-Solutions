@@ -10,21 +10,16 @@
  * @return {ListNode}
  */
 var middleNode = function(head) {
-    let count = 0;
-    let itr = head;
+    let fast = head;
+    let slow = head;
     
-    while(itr) {
-        count++;
-        itr = itr.next;
+    while(fast) {
+        if(fast.next)
+            fast = fast.next.next;
+        else
+            break;
+        slow = slow.next;
     }
     
-    itr = head;
-    count = Math.floor(count/2);
-    // console.log(Math.floor(count));
-    while(count > 0) {
-        itr = itr.next;
-        count--;
-    }
-    
-    return itr;
+    return slow;
 };
