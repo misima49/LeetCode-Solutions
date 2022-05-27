@@ -9,25 +9,24 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        unordered_set<ListNode*> hash;
+        ListNode* itr1 = headA;
+        ListNode* itr2 = headB;
         
-        while(headA || headB) {
-            // cout << "here ";
-            if(headA) {
-                if(hash.find(headA) != hash.end()) {
-                    return headA;    
-                }
-                hash.insert(headA);
-                headA = headA->next;
+        while(itr1 || itr2) {
+            if(itr1 == NULL) {
+                itr1 = headB;
+            }
+            if(itr2 == NULL) {
+                itr2 = headA;
             }
             
-            if(headB) {
-                if(hash.find(headB) != hash.end()) {
-                    return headB;    
-                }
-                hash.insert(headB);
-                headB = headB->next;
+            if(itr1 == itr2) {
+                return itr1;
             }
+            
+            // cout << itr1->val << " " << itr2->val << "\n";
+            itr1 = itr1->next;
+            itr2 = itr2->next;
         }
         
         return NULL;
