@@ -19,7 +19,7 @@ public:
             n++;
             itr = itr->next;
         }
-        cout << n;
+        // cout << n;
         k = k%n;
         k = n-k;
         itr->next = head;
