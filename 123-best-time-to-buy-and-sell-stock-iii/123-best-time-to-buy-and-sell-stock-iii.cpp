@@ -21,7 +21,7 @@ class Solution {
 public:
     int maxProfit(vector<int>& prices) {
         int n = prices.size();
-        vector<vector<vector<int>>> dp(n+1, vector<vector<int>>(2, vector<int>(3, 0)));
+        vector<vector<int>> next(2, vector<int>(3, 0)), cur(2, vector<int>(3, 0));
         
         for(int ind = n-1; ind >= 0; ind--) {
             for(int buy = 0; buy <= 1; buy++) {
@@ -29,19 +29,21 @@ public:
                     // cout << ind << " " << buy << " " << cap << "\n";
                     int profit = 0;
                     if(buy) {
-                        profit = max(-prices[ind] + dp[ind+1][!buy][cap],
-                                     dp[ind+1][buy][cap]);
+                        profit = max(-prices[ind] + next[!buy][cap],
+                                     next[buy][cap]);
                     } else {
-                        profit = max(prices[ind] + dp[ind+1][!buy][cap-1],
-                                    dp[ind+1][buy][cap]);
+                        profit = max(prices[ind] + next[!buy][cap-1],
+                                    next[buy][cap]);
                     }
 
-                    dp[ind][buy][cap] = profit;
+                    cur[buy][cap] = profit;
                 }
+                
+                next = cur;
             }
         }
         
-        return dp[0][1][2];
+        return next[1][2];
         // return findProfit(0, true, 2, prices, dp);
     }
 };
