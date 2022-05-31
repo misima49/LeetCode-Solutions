@@ -16,22 +16,27 @@ class Solution {
 public:
     int maxProfit(vector<int>& prices) {
         int n = prices.size();
-        vector<vector<int>> dp(n+2, vector<int>(2, 0));
+        // vector<vector<int>> dp(n+2, vector<int>(2, 0));
+        
+        vector<int> next2(2, 0), next(2, 0), cur(2, 0);
         
         for(int i = n-1; i >= 0; i--) {
             for(int buy = 0; buy <= 1; buy++) {
                 if(buy) {
-                    dp[i][buy] = max(-prices[i]+dp[i+1][false],
-                                    dp[i+1][true]);
+                    cur[buy] = max(-prices[i]+next[false],
+                                    next[true]);
                 } else {
-                    dp[i][buy] = max(prices[i]+dp[i+2][true],
-                                    dp[i+1][false]);
+                    cur[buy] = max(prices[i]+next2[true],
+                                    next[false]);
                 }
             }
+            
+            next2 = next;
+            next = cur;
         }
         
         
-        return dp[0][true];
+        return cur[true];
         // return findProfit(0, true, prices, dp);
     }
 };
