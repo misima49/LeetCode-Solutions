@@ -36,12 +36,8 @@ var mergeTrees = function(root1, root2) {
         if(cur1.left && cur2.left) {
             st1.push(cur1.left);
             st2.push(cur2.left);
-        } else if(cur2.left) {
+        } else if(cur2.left && !cur1.left) {
             cur1.left = new TreeNode(0);
-            st1.push(cur1.left);
-            st2.push(cur2.left);
-        } else if(cur1.left) {
-            cur2.left = new TreeNode(0);
             st1.push(cur1.left);
             st2.push(cur2.left);
         }
@@ -49,12 +45,8 @@ var mergeTrees = function(root1, root2) {
         if(cur1.right && cur2.right) {
             st1.push(cur1.right);
             st2.push(cur2.right);
-        } else if(cur2.right) {
+        } else if(cur2.right && !cur1.right) {
             cur1.right = new TreeNode(0);
-            st1.push(cur1.right);
-            st2.push(cur2.right);
-        } else if(cur1.right) {
-            cur2.right = new TreeNode(0);
             st1.push(cur1.right);
             st2.push(cur2.right);
         }
