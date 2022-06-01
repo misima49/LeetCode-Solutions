@@ -13,31 +13,19 @@
  * @return {Node}
  */
 var connect = function(root) {
-    if(root === null) return root;
-    let st = [];
-    st.push(root);
-    
-    while(st.length > 0) {
-        let n = st.length;
-        // console.log(n);
-        
-        while(--n) {
-            let cur = st[0];
-            st.shift();
-            if(cur.left) {
-                st.push(cur.left);
-                st.push(cur.right);
+    let temp = root;
+    while(root) {
+        let cur = root;
+        while(cur && cur.left) {
+            cur.left.next = cur.right;
+            if(cur.next) {
+                cur.right.next = cur.next.left;
             }
-            cur.next = st[0];
+            
+            cur = cur.next;
         }
-        
-        if(st[0].left) {
-            st.push(st[0].left);
-            st.push(st[0].right);
-        }
-        
-        st.shift();
+        root = root.left;
     }
     
-    return root;
+    return temp;
 };
