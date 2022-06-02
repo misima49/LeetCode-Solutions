@@ -7,6 +7,7 @@ public:
         sort(nums.begin(), nums.end());
         
         while(i < j) {
+            if(nums[i] > 0) break;
             while(k < j) {
                 if(nums[i]+nums[j]+nums[k] == 0) {
                     ans.push_back({nums[i], nums[j], nums[k]});
