@@ -18,9 +18,21 @@ public:
         cuts.push_back(n);
         cuts.insert(cuts.begin(), 0);
         sort(cuts.begin(), cuts.end());
+        vector<vector<int>> dp(len+2, vector<int>(len+2, 0));
         
-        vector<vector<int>> dp(len+1, vector<int>(len+1, -1));
+        for(int i = len; i >= 1; i--) {
+            for(int j = 1; j <= len; j++) {
+                int mini = 1e8;
+                if(i > j) continue;
+                for(int itr = i; itr <= j; itr++) {
+                    int cost = cuts[j+1] - cuts[i-1] + dp[i][itr-1] + dp[itr+1][j];
+                    mini = min(cost, mini);
+                }
+                
+                dp[i][j] = mini;
+            }
+        }
         
-        return findCost(1, len, cuts, dp);
+        return dp[1][len];
     }
 };
