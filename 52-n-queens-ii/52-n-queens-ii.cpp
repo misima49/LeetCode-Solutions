@@ -1,7 +1,7 @@
 class Solution {
-    void solve(int col,vector<string>& curSol, vector<vector<string>>& result, int n, unordered_map<int, bool>& leftRow, unordered_map<int, bool>& lowerDiag, unordered_map<int, bool>& upperDiag) {
+    void solve(int col,vector<string>& curSol, int& result, int n, unordered_map<int, bool>& leftRow, unordered_map<int, bool>& lowerDiag, unordered_map<int, bool>& upperDiag) {
         if(col == n) {
-            result.push_back(curSol);
+            result++;
             return;
         }
         
@@ -22,7 +22,7 @@ class Solution {
     }
 public:
     int totalNQueens(int n) {
-        vector<vector<string>> result;
+        int result = 0;
         string inti = string(n, '.');
         vector<string> curSol(n, inti);
         unordered_map<int, bool> leftRow;
@@ -43,6 +43,6 @@ public:
         
         solve(0, curSol, result, n, leftRow, lowerDiag, upperDiag);
         
-        return result.size();
+        return result;
     }
 };
