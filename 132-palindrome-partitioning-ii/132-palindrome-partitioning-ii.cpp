@@ -28,8 +28,19 @@ class Solution {
 public:
     int minCut(string s) {
         int n = s.length();
-        vector<int> dp(n, -1);
+        vector<int> dp(n+1, 0);
         
-        return findCuts(0, n, s, dp)-1;
+        for(int i = n-1; i >= 0; i--) {
+            int minCost = 1e8;
+            for(int j = i; j < n; j++) {
+                if(isPalindrome(i, j, s)) {
+                    minCost = min(minCost, 1+dp[j+1]);
+                }
+            }
+            
+            dp[i] = minCost;
+        }
+        
+        return dp[0]-1;
     }
 };
