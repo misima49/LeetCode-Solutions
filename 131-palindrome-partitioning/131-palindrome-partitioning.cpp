@@ -1,33 +1,32 @@
 class Solution {
-    bool isPalindrome(string s, int start, int end) {
-        while(start < end) {
-            if(s[start++] != s[end--])
-                return false;
+    bool isPalindrome(int st, int ed, string& s) {
+        while(st < ed) {
+            if(s[st++] != s[ed--]) return false;
         }
         
         return true;
     }
     
-    void findSubStr(string s, int ind, vector<string>& curSol, vector<vector<string>>& answer) {
-        if(ind == s.length()) {
-            answer.push_back(curSol);
+    void findPalin(int ind, vector<string>& curPart, string& s, vector<vector<string>>& answer) {
+        int n = s.length();
+        if(ind == n) {
+            answer.push_back(curPart);
             return;
         }
         
-        cout << ind << " ";
-        for(int i = ind; i < s.length(); i++) {
-            if(isPalindrome(s, ind, i)) {
-                curSol.push_back(s.substr(ind, i - ind + 1));
-                findSubStr(s, i+1, curSol, answer);
-                curSol.pop_back();
+        for(int i = ind; i < n; i++) {
+            if(isPalindrome(ind, i, s)) {
+                curPart.push_back(s.substr(ind, i-ind+1));
+                findPalin(i+1, curPart, s, answer);
+                curPart.pop_back();
             }
         }
     }
 public:
     vector<vector<string>> partition(string s) {
-        vector<string> curSol;
+        vector<string> curPart;
         vector<vector<string>> answer;
-        findSubStr(s, 0, curSol, answer);
+        findPalin(0, curPart, s, answer);
         
         return answer;
     }
