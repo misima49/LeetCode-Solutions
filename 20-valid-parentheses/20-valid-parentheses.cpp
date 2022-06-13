@@ -3,7 +3,7 @@ public:
     bool isValid(string s) {
         stack<char> st;
         for(char c : s) {
-            cout << c;
+            // cout << c;
             switch(c) {
                 case ')' : 
                     if(!st.empty() && st.top() == '(')
