@@ -1,45 +1,59 @@
 class Solution {
-    static bool sortComp(string& s1, string& s2) {
-        return s1.length() < s2.length();
+    static bool sortComp(string& a, string& b) {
+        return a.length() < b.length();
     }
     
-    bool compare(string& s1, string& s2) {
-        int m = s1.length();
-        int n = s2.length();
-        if(m != n+1) return false;
+    bool isPred(string& s1, string& s2) {
+        int n = s1.length(), m = s2.length();
+        int i = 0, j = 0;
+        bool flag = true;
+        if(n+1 != m) return false;
         
-        int itr1 = 0, itr2 = 0;
-        while(itr1 < m) {
-            if(itr2 < n && s1[itr1] == s2[itr2]) {
-                itr1++;
-                itr2++;
+        while(i < n) {
+            if(s1[i] == s2[j]) {
+                i++; j++;
+            } else if(flag) {
+                j++;
+                flag = false;
             } else {
-                itr1++;
+                return false;
             }
         }
         
-        if(itr1 == m && itr2 == n) return true;
-        return false;
+        return true;
     }
+    
+//     int findChain(int cur, int prev, vector<string>& words, vector<vector<int>>& dp) {
+//         if(cur == words.size()) return 0;
+//         if(dp[cur][prev+1] != -1) return dp[cur][prev+1];
+        
+//         int pick = 0;
+//         int notPick = findChain(cur+1, prev, words, dp);
+        
+//         if(prev == -1 || isPred(words[prev], words[cur])) {
+//             pick = 1+findChain(cur+1, cur, words, dp);
+//         }
+        
+//         // cout << cur << " " << prev << " " << words[cur] << " " << pick << " " << notPick << "\n";
+        
+//         return dp[cur][prev+1] = max(pick, notPick);
+//     }
 public:
     int longestStrChain(vector<string>& words) {
-        sort(words.begin(), words.end(), sortComp);
         int n = words.size();
         vector<int> dp(n, 1);
-        int longest = 1;
-        
+        sort(words.begin(), words.end(), sortComp);
+        int longestChain = 0;
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < i; j++) {
-                if(compare(words[i], words[j]) && dp[i] < 1+dp[j]) {
-                    dp[i] = 1+dp[j];
+                if(isPred(words[j], words[i]) && dp[i] < dp[j]+1) {
+                    dp[i] = dp[j]+1;
                 }
             }
             
-            longest = max(longest, dp[i]);
+            longestChain = max(longestChain, dp[i]);
         }
-        // for(int i = 0; i < n; i++) {
-        //     cout << dp[i] << " ";
-        // }
-        return longest;
+        
+        return longestChain;
     }
 };
