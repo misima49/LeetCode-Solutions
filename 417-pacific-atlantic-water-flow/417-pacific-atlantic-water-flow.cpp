@@ -18,10 +18,10 @@ public:
         
         for(int j = 0; j < m; j++) {
             pacif_visit[j][0] = true;
-            pacif_q.push({j, 0});
+            pacif_q.emplace(j, 0);
             
             atlan_visit[j][n-1] = true;
-            atlan_q.push({j, n-1});
+            atlan_q.emplace(j, n-1);
         }
         
         bfs(pacif_q, pacif_visit, heights);
@@ -61,7 +61,7 @@ private:
                 if(isValid(x, y, m, n) && heights[r][c] <= heights[x][y]
                   && !visited[x][y]) {
                     visited[x][y] = true;
-                    q.push({x, y});
+                    q.emplace(x, y);
                 }
             }
         }
