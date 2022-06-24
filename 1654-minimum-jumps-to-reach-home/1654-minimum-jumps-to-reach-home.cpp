@@ -27,7 +27,7 @@ public:
                 int cur = q.front().first;
                 bool canMoveBack = q.front().second;
                 q.pop();
-                cout << cur << " ";
+                // cout << cur << " ";
                 if(cur+a < lim && forb.find(cur+a) == forb.end()
                    && visited.find({cur+a, true}) == visited.end()) {
                     if(cur+a == x) return ans;
