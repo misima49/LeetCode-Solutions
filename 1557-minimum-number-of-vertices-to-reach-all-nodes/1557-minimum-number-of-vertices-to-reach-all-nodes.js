@@ -4,7 +4,7 @@
  * @return {number[]}
  */
 var findSmallestSetOfVertices = function(n, edges) {
-    let indeg = new Array(n); for(let i = 0; i < n; i++) indeg[i] = 0;
+    let indeg = new Array(n).fill(0);
     
     for(edge of edges) {
         indeg[edge[1]]++;
