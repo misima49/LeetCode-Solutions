@@ -1,6 +1,6 @@
 class Solution {
     vector<string> ans;
-    void findCombs(int op, int ed, int n, string curS) {
+    void findCombs(int op, int ed, int& n, string& curS) {
         if(op == n && ed == n) {
             ans.push_back(curS);
             return;
@@ -15,11 +15,13 @@ class Solution {
         if(ed <= op) {
             curS.push_back(')');
             findCombs(op, ed+1, n, curS);
+            curS.pop_back();
         }
     }
 public:
     vector<string> generateParenthesis(int n) {
-        findCombs(0, 0, n, "");
+        string curS = "";
+        findCombs(0, 0, n, curS);
         return ans;
     }
 };
