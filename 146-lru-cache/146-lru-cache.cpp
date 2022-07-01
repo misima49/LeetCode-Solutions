@@ -24,7 +24,7 @@ public:
             return;
         }
         
-        if(lruCache.size() == lruCap) {
+        if(lruMap.size() == lruCap) {
             int lastEle = lruCache.back().first;
             lruMap.erase(lastEle);
             lruCache.pop_back();
