@@ -1,23 +1,4 @@
 class Solution {
-    int findWiggle(int ind, bool isPrevLarger, vector<int>& nums) {
-        int n = nums.size();
-        if(ind == n) return 0;
-        
-        int longestWiggle = 0;
-        for(int i = ind+1; i < n; i++) {
-            if(isPrevLarger) {
-                if(nums[i] > nums[ind]) {
-                    longestWiggle = max(longestWiggle, findWiggle(i, false, nums));
-                }
-            } else {
-                if(nums[i] < nums[ind]) {
-                    longestWiggle = max(longestWiggle, findWiggle(i, true, nums));
-                }
-            }
-        }
-        
-        return 1+longestWiggle;
-    }
 public:
     int wiggleMaxLength(vector<int>& nums) {
         int n = nums.size();
