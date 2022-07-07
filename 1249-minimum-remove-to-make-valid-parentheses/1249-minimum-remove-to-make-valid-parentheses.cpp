@@ -7,10 +7,11 @@ public:
             if(s[i] == '(') {
                 st.emplace('(', i);
             } else if(s[i] == ')') {
-                if(st.empty() || st.top().first != '(') {
+                if(st.empty()) {
                     // cout << i;
                     s.erase(i, 1);
                     i--;
+                    n--;
                 } else {
                     st.pop();
                 }
