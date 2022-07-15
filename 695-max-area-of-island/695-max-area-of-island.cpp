@@ -8,6 +8,7 @@ public:
         int rlen = grid.size();
         int clen = grid[0].size();
         int cur, largest = 0;
+        int dir[] = {0, 1, 0, -1, 0};
         
         stack<pair<int, int>> st;
         
@@ -21,27 +22,16 @@ public:
                         int x = st.top().first;
                         int y = st.top().second;
                         st.pop();
-                        // cout << x << " " << y << "\n";
                         cur++;
-                        
-                        if(isValid(x+1, y, rlen, clen) && grid[x+1][y] == 1) {
-                            st.push({x+1, y});
-                            grid[x+1][y] = 0;
-                        }
-                        if(isValid(x-1, y, rlen, clen) && grid[x-1][y] == 1) {
-                            st.push({x-1, y});
-                            grid[x-1][y] = 0;
-                        }
-                        if(isValid(x, y+1, rlen, clen) && grid[x][y+1] == 1) {
-                            st.push({x, y+1});
-                            grid[x][y+1] = 0;
-                        }
-                        if(isValid(x, y-1, rlen, clen) && grid[x][y-1] == 1) {
-                            st.push({x, y-1});
-                            grid[x][y-1] = 0;
+                        for(int itr = 0; itr < 4; itr++) {
+                            int r = x+dir[itr];
+                            int c = y+dir[itr+1];
+                            if(isValid(r, c, rlen, clen) && grid[r][c] == 1) {
+                                st.push({r, c});
+                                grid[r][c] = 0;
+                            }
                         }
                     }
-                    // cout << "\n";
                     largest = max(largest, cur);
                 }
             }
