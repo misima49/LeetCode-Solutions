@@ -8,11 +8,9 @@ public:
         
         while(rt < n) {
             charFreq[s[rt]-'A']++;
-            int maxFreq = 0;
+            if(maxFreq < charFreq[s[rt]-'A']) maxFreq = charFreq[s[rt]-'A'];
             
-            for(int& itr : charFreq) {
-                if(maxFreq < itr) maxFreq = itr;
-            }
+            
             if(rt-lt+1 - maxFreq > k) {
                 charFreq[s[lt]-'A']--;
                 lt++;
