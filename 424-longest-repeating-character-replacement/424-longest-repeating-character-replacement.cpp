@@ -9,8 +9,7 @@ public:
         while(rt < n) {
             charFreq[s[rt]-'A']++;
             if(maxFreq < charFreq[s[rt]-'A']) maxFreq = charFreq[s[rt]-'A'];
-            
-            
+
             if(rt-lt+1 - maxFreq > k) {
                 charFreq[s[lt]-'A']--;
                 lt++;
