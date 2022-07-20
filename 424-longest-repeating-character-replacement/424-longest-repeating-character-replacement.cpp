@@ -16,9 +16,6 @@ public:
             if(rt-lt+1 - maxFreq > k) {
                 charFreq[s[lt]-'A']--;
                 lt++;
-                for(int& itr : charFreq) {
-                    if(maxFreq < itr) maxFreq = itr;
-                }
             }
             
             ans = max(ans, rt-lt+1);
