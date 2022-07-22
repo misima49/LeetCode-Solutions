@@ -1,4 +1,3 @@
-/* Write your T-SQL query statement below */
 /* Write your PL/SQL query statement below */
 SELECT name, population, area
 FROM World
