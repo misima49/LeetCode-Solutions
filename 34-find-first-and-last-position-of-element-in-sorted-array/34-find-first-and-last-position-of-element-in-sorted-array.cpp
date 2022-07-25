@@ -1,32 +1,32 @@
 class Solution {
+    vector<int> ans;
+    
+    void binarySearch(vector<int>& nums, int& target, int st, int ed) {
+        if(st > ed) return;
+        
+        int md = st + (ed-st)/2;
+        
+        // cout << st << " "  << ed << nums[md] << '\n';
+        if(nums[md] == target) {
+            ans[0] = ans[0] < md ? ans[0] : md;
+            ans[1] = ans[1] > md ? ans[1] : md;
+            
+            if(md > 0 && nums[md-1] == target) binarySearch(nums, target, st, md-1);
+            if(md+1 < nums.size() && nums[md+1] == target) binarySearch(nums, target, md+1, ed);
+        } else if(nums[md] > target) {
+            binarySearch(nums, target, st, md-1);
+        } else {
+            binarySearch(nums, target, md+1, ed);
+        }
+    }
 public:
+    Solution() : ans({INT_MAX, INT_MIN}) {};
     vector<int> searchRange(vector<int>& nums, int target) {
-        if(nums.size() == 0) return {-1, -1};
-        int start = 0;
-        int end = nums.size()-1;
-        int mid = (end - start)/2;
+        // ans[0] = INT_MIN;
+        // ans[1] = INT_MAX;
+        binarySearch(nums, target, 0, nums.size()-1);
         
-        while(start < end && start <= mid && mid <= end) {
-            // cout << start << " " << mid << " " << end << "\n";
-            if(nums[mid] == target) break;
-            else if(nums[mid] < target)
-                start = mid+1;
-            else 
-                end = mid-1;
-            
-            mid = start + (end-start)/2;
-        }
-        
-        // cout << "here";
-        if(mid >= nums.size() || nums[mid] != target) return {-1, -1};
-        
-        start = end = mid;
-        while((start > 0 && nums[start-1] == target) || (end < nums.size()-1 && nums[end+1] == target)) {
-            if(start > 0 && nums[start-1] == target) start--;
-            if(end < nums.size()-1 && nums[end+1] == target) end++;
-            
-        }
-        
-        return {start, end};
+        if(ans[0] == INT_MAX || ans[1] == INT_MIN) return {-1, -1};
+        return ans;
     }
 };
