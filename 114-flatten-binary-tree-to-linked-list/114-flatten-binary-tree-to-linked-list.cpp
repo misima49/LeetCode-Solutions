@@ -12,7 +12,6 @@
  * };
  */
 class Solution {
-    TreeNode* prev = NULL;
 public:
     void flatten(TreeNode* root) {
         if(root == NULL) return;
