@@ -11,12 +11,11 @@
  */
 class Solution {
     bool findHasPathSum(TreeNode* root, int targetSum) {
-        // if(!root) {
-        //     return targetSum == 0;
-        // }
         bool lh = false, rh = false;
         if(root->left) lh = hasPathSum(root->left, targetSum - root->val);
+        if(lh) return true;
         if(root->right) rh = hasPathSum(root->right, targetSum - root->val);
+        if(rh) return true;
 
         if(!root->left && !root->right) return targetSum == root->val;
         
