@@ -2,21 +2,23 @@ class Solution {
 public:
     string smallestNumber(string pattern) {
         int n = pattern.size();
-        string ans = "";
-        for(char i = '1'; i <= n+'1'; i++) {
-            ans.push_back(i);
-        }
-
-        int lf = 0, rt = 0;
-        while(rt < n) {
-            if(pattern[rt] == 'I') {
-                reverse(ans.begin()+lf, ans.begin()+rt+1);
-                lf = rt+1;
+        stack<char> st;
+        string ans;
+        
+        for(int i = 0; i <= n; i++) {
+            st.push(i+'1');
+            if(i == n || pattern[i] == 'I') {
+                while(!st.empty()) {
+                    ans.push_back(st.top());
+                    st.pop();
+                }
             }
-            rt++;
         }
         
-        if(rt != lf) reverse(ans.begin()+lf, ans.begin()+rt+1);
+        while(!st.empty()) {
+            ans.push_back(st.top());
+            st.pop();
+        }
         
         return ans;
     }
